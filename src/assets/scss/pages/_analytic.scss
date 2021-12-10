@@ -1,0 +1,21 @@
+.analytic {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  padding-bottom: 2rem;
+
+  &-container {
+    width: 50rem;
+    @media screen and (max-width: $desktop + 24) {
+      width: 40rem;
+    }
+    @media screen and (max-width: $tablet-small + 80) {
+      width: 30rem;
+    }
+    @media screen and (max-width: $smartphone) {
+      width: 100%;
+    }
+  }
+}

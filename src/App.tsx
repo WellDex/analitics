@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import FooterComponent from './components/common/FooterComponent';
+import HeaderComponent from './components/common/HeaderComponent';
+import Preloader from './components/common/Preloader';
+import {AuthContext} from './context/AuthContext';
+import {useAuth} from './hooks/authHook';
+import {UseRoutes} from './routes';
 
-function App() {
+const App = () => {
+  const {token, login, logout, ready} = useAuth();
+  const isAuth = !!token;
+
+  if (!ready) {
+    return <Preloader />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={{token, login, logout, isAuth}}>
+      <HeaderComponent isAuth={isAuth} />
+      <div className="container">
+        <UseRoutes isAuth={isAuth} />
+      </div>
+      <FooterComponent />
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;
